@@ -1,0 +1,120 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '../static/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" href="{% static '../static/newslogo2.jpg' %}">
+  </head>
+  <body style="margin: 0;
+  padding: 0;
+  height: 100%;">
+    <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">
+            <img class="logoimg" src="{% static '../static/newslogo2.jpg' %}" alt="logo"
+            class="d-inline-back align-top"/>
+            </a>
+          <!--collapsed navbar-->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent"><!--nav with login-->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0"><!--nav middle-->
+              <li class="nav-item"><!--home-->
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categories
+                </a>
+                <ul class="dropdown-menu">
+                  {% for t in All_cates %}
+                    <li><a class="dropdown-item" href="/Category/{{ t.title }}" style="margin-left: 5px;">{{t.title}}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>   
+              <li class="nav-item"><!--aboutus-->
+                <a class="nav-link" href="{% url 'contact' %}">Contact-Us</a>
+              </li>
+              {%if not user.is_authenticated%}
+              <li class="nav-item dropdown"><!--forsignup-->
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  account
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}" style="margin-left: 5px;">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}" style="margin-left: 5px;">Sign Up</a>
+                  </li>
+                </ul>
+              </li>
+              {% endif %}
+            </ul>
+            
+            <form class="d-flex" role="search" method="GET" action="{% url 'search' %}">
+              <input name="q" class="form-control me-2" type="search" placeholder="Search by title or category" aria-label="Search"> 
+            </form>
+                    
+            
+            {% if user.is_authenticated %}
+            <div class="form-inline ml-auto">
+                {% if user.is_staff %}
+                    <a href="{% url 'Create' %}"><button class="bbtn navbar-buttons m-2"><i class="bi bi-pencil"></i> New</button></a>
+                {% endif %}
+                {% if user.is_superuser %}
+                <a href="/admin/"><button class="bbtn navbar-buttons m-2"><i class="bi bi-database-add"></i>Admin Pannel</button></a>
+              {% endif %}
+                <a href="{% url 'profile' %}"><button class="bbtn navbar-buttons m-2"><i class="bi bi-person-circle"></i> {{user.username}}</button></a>
+                <a href="{% url 'logout' %}"><button class="bbtn navbar-buttons">Log-out</button></a>
+
+            </div>
+        {% endif %}
+        
+      
+    
+
+          </div>
+        </div>
+      </nav>  
+    </header> 
+        
+      {% block content %}{% endblock %}
+
+      <div class="b-example-divider"></div>
+
+      
+        <div class="container">
+          <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" style="height: 50px;
+          position: relative;
+          bottom: 0;
+          width: 100%;
+          margin-bottom: 0%;
+          padding-bottom: 0%;"
+          data-bs-theme="dark">
+            <div class="col-md-4 d-flex align-items-center">
+              <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+              </a>
+              <span class="mb-3 mb-md-0 text-muted">&copy; 2023 24HOURS, Inc</span>
+            </div>
+        
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+              <li class="ms-3"><a class="text-muted" href="https://t.me/Medafk"><i class="bi bi-telegram"></i></a></li>
+              <li class="ms-3"><a class="text-muted" href="https://www.linkedin.com/in/medafk/"><i class="bi bi-linkedin"></i></a></li>
+              <li class="ms-3"><a class="text-muted" href="https://github.com/MEDAFKARI/E-news"><i class="bi bi-github"></i></a></li>
+            </ul>
+          </footer>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  </body>
+</html>
