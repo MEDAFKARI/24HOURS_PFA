@@ -2,12 +2,12 @@
 {% block title %}{{art.title}}{% endblock %}
 {% block content %}
 <div class="container mt-5">
-  <div class="card mb-3">
+  <div class="card mb-3" style="background-color:#293241 !important;border: none;">
     <img src="{{ art.image.url }}" class="card-img-top" alt="...">
-    <div class="card-body">
+    <div class="card-body" style="color:rgb(204, 204, 76);">
       <h5 class="card-title">{{ art.title }}</h5>
-      <p class="card-text">{{ art.content }}</p>
-      <p class="card-text"><small class="text-body-secondary">Last updated {{ art.date }}</small></p>
+      <p class="card-text" style="color:white !important;">{{ art.content }}</p>
+      <p class="card-text"><small class="text-body-secondary" style="color:rgb(189, 189, 189) !important;">Last updated {{ art.date }}</small></p>
     </div>
   </div>
 </div>
@@ -15,9 +15,6 @@
 <div class="container">
         {% for comment in comments %}
         <div class="card">
-          <div class="card-header">
-            Comment
-          </div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
               <p>{{ comment.content }}</p>
@@ -30,6 +27,7 @@
         </div>
         {% endfor %}
       </div>
+      <br>
       <div class="container">
       <div class="form-floating mt5">
         <form method="post">
