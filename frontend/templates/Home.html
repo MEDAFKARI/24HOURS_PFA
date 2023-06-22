@@ -3,9 +3,8 @@
 {% block content %}
 <div class="container">
 
-  {% if request.path == '/' %}
+  {% if request.get_full_path == '/' %} 
   <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
-    
     <div class="carousel-inner">
       {% for a in data %}
       <div class="carousel-item{% if forloop.first %} active{% endif %}">
@@ -13,7 +12,6 @@
       </div>
       {% endfor %}
     </div>
-    
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
@@ -24,15 +22,8 @@
     </button>
   </div>
   {% endif %}
+
   
-  
-
-
-
-
-
-
-
 
  
   <div class="row justify-content-center" style="padding-top: 30px;">
